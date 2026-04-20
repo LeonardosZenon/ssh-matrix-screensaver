@@ -20,7 +20,7 @@ while true; do
                 RUNNING=1
 
                 # run cmatrix
-                docker run --rm -it leonardoszenon/cmatrix:latest < "$TTY" > "$TTY"
+                docker run -it leonardoszenon/cmatrix:latest < "$TTY" > "$TTY"
                 printf '\n' > "$TTY"
 
                 RUNNING=0
