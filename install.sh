@@ -12,7 +12,7 @@ cp "./$SCRIPT_NAME" "$TARGET"
 chmod +x "$TARGET"
 
 # avoid duplicate injection
-if ! grep -q "/# >>> ssh-matrix-idle >>>" "$HOME/.bashrc"; then
+if ! grep -qF "# >>> ssh-matrix-idle >>>" "$HOME/.bashrc"; then
 cat <<'EOF' >> "$HOME/.bashrc"
 
 # >>> ssh-matrix-idle >>>
