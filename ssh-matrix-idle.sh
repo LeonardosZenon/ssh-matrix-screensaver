@@ -4,7 +4,7 @@ TTY="$1"
 [ -e "$TTY" ] || exit 1
 
 IDLE=300
-CHECK=10
+CHECK=2
 RUNNING=0
 
 while true; do
