@@ -20,9 +20,9 @@ A lightweight SSH idle screensaver that runs `cmatrix` in Docker after (5' defau
 
 ## INSTALLATION
 
-Run from inside the project folder:
 ```bash
 git clone https://github.com/LeonardosZenon/ssh-matrix-screensaver.git ssh-matrix-screensaver 2>/dev/null || (cd ssh-matrix-screensaver && git pull)
+cd ssh-matrix-screensaver
 ./install.sh
 ```
 
