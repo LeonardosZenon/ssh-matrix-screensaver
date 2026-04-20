@@ -5,6 +5,7 @@
 <!-- TOC -->
 * [SSH MATRIX SCREENSAVER](#ssh-matrix-screensaver)
   * [DESCRIPTION](#description)
+    * [ISSUES](#issues)
   * [INSTALLATION](#installation)
   * [UNINSTALL](#uninstall)
   * [MENTIONS](#mentions)
@@ -15,6 +16,10 @@
 ## DESCRIPTION
 
 A lightweight SSH idle screensaver that runs `cmatrix` in Docker after (5' default) inactivity.
+
+### ISSUES
+
+* It is junky on exiting the screensaver.
 
 ---
 
