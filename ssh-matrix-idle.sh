@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-TTY="$1"
-[ -e "$TTY" ] || exit 1
-
 IDLE=300
 CHECK=2
 RUNNING=0
@@ -20,8 +17,10 @@ while true; do
                 RUNNING=1
 
                 # run cmatrix
-                docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
-                printf '\n' > /dev/tty
+                # docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
+                # printf '\n' > /dev/tty
+
+                cmatrix -r -s -u 10
 
                 RUNNING=0
         fi
