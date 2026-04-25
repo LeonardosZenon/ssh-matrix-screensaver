@@ -16,10 +16,11 @@ while true; do
         if [ "$DIFF" -ge "$IDLE" ] && [ "$RUNNING" -eq 0 ]; then
                 RUNNING=1
 
-                # run cmatrix
+                # run cmatrix docker mode
                 # docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
                 # printf '\n' > /dev/tty
 
+                # run cmatrix command mode
                 cmatrix -r -s -u 10
 
                 RUNNING=0
