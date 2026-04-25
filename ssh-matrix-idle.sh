@@ -20,7 +20,7 @@ while true; do
                 RUNNING=1
 
                 # run cmatrix
-                docker run -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
+                docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
                 printf '\n' > /dev/tty
 
                 RUNNING=0
