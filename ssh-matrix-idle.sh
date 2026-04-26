@@ -13,41 +13,28 @@ run_native() {
     cmatrix -r -s -u 10 < "$TTY" > "$TTY" 2>&1
 }
 
-run_docker_simple() {
+run_docker() {
     docker run --rm -it \
         -v "$TTY":"$TTY" \
         leonardoszenon/cmatrix:latest \
         < "$TTY" > "$TTY" 2>&1
 }
 
-run_docker_privileged() {
-    docker run --rm -it \
-        --privileged \
-        --pid=host \
-        -v /dev/pts:/dev/pts \
-        leonardoszenon/cmatrix:latest \
-        < "$TTY" > "$TTY" 2>&1
-}
-
 run_screensaver() {
-    # Prefer Docker if available
-    if command -v docker >/dev/null 2>&1; then
 
-        # first try normal docker run
-        if run_docker_simple; then
-            return
-        fi
-
-        # fallback if tty permission/device issue
-        if run_docker_privileged; then
-            return
-        fi
-    fi
-
-    # final fallback = native cmatrix
+    # native cmatrix
     if command -v cmatrix >/dev/null 2>&1; then
         run_native
     fi
+
+    # fallback docker
+    if command -v docker >/dev/null 2>&1; then
+        if run_docker; then
+            return
+        fi
+    fi
+
+
 }
 
 while true; do
