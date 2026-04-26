@@ -22,6 +22,7 @@ run_screensaver() {
     # native cmatrix
     if command -v cmatrix >/dev/null 2>&1; then
         run_native
+        return
     fi
 
     # fallback docker
