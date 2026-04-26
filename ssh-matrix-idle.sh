@@ -65,7 +65,7 @@ while true; do
         run_screensaver
 
         # restore terminal after cmatrix/docker exits
-        reset < "$TTY" > "$TTY" 2>&1
+#        reset < "$TTY" > "$TTY" 2>&1
 
         RUNNING=0
     fi
