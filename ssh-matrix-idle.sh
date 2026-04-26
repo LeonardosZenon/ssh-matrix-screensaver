@@ -2,7 +2,7 @@
 
 TTY="$1"
 
-IDLE=300
+IDLE=20
 CHECK=2
 RUNNING=0
 
