@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TTY=/dev/tty
+TTY="${1:-$SSH_TTY}"
 
 IDLE=20
 CHECK=2
