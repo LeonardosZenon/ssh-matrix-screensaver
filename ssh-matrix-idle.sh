@@ -23,6 +23,9 @@ while true; do
                 docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
                 printf '\n' > /dev/tty
 
+                # command mode
+                # cmatrix -r -s < /dev/tty > /dev/tty
+
                 RUNNING=0
         fi
 
