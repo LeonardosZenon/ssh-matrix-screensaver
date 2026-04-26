@@ -2,31 +2,73 @@
 
 TTY="$1"
 
-IDLE=20
+IDLE=300
 CHECK=2
 RUNNING=0
 
-while true; do
-        LAST=$(stat -c %X "$TTY" 2>/dev/null) || {
-                sleep "$CHECK"
-                continue
-        }
+# exit if no tty was passed
+[ -z "$TTY" ] && exit 1
 
-        NOW=$(date +%s)
-        DIFF=$((NOW-LAST))
+run_native() {
+    cmatrix -r -s -u 10 < "$TTY" > "$TTY" 2>&1
+}
 
-        if [ "$DIFF" -ge "$IDLE" ] && [ "$RUNNING" -eq 0 ]; then
-                RUNNING=1
+run_docker_simple() {
+    docker run --rm -it \
+        -v "$TTY":"$TTY" \
+        leonardoszenon/cmatrix:latest \
+        < "$TTY" > "$TTY" 2>&1
+}
 
-#                 run cmatrix docker mode
-#                 docker run --rm -it leonardoszenon/cmatrix:latest < /dev/tty > /dev/tty
-#                 printf '\n' > /dev/tty
+run_docker_privileged() {
+    docker run --rm -it \
+        --privileged \
+        --pid=host \
+        -v /dev/pts:/dev/pts \
+        leonardoszenon/cmatrix:latest \
+        < "$TTY" > "$TTY" 2>&1
+}
 
-                # run cmatrix command mode
-                cmatrix -r -s -u 10 < /dev/tty > /dev/tty
+run_screensaver() {
+    # Prefer Docker if available
+    if command -v docker >/dev/null 2>&1; then
 
-                RUNNING=0
+        # first try normal docker run
+        if run_docker_simple; then
+            return
         fi
 
+        # fallback if tty permission/device issue
+        if run_docker_privileged; then
+            return
+        fi
+    fi
+
+    # final fallback = native cmatrix
+    if command -v cmatrix >/dev/null 2>&1; then
+        run_native
+    fi
+}
+
+while true; do
+    LAST=$(stat -c %X "$TTY" 2>/dev/null) || {
         sleep "$CHECK"
+        continue
+    }
+
+    NOW=$(date +%s)
+    DIFF=$((NOW - LAST))
+
+    if [ "$DIFF" -ge "$IDLE" ] && [ "$RUNNING" -eq 0 ]; then
+        RUNNING=1
+
+        run_screensaver
+
+        # restore terminal after cmatrix/docker exits
+        reset < "$TTY" > "$TTY" 2>&1
+
+        RUNNING=0
+    fi
+
+    sleep "$CHECK"
 done
