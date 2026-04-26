@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-TTY="$1"
+TTY=/dev/tty
 
 IDLE=20
 CHECK=2
 RUNNING=0
-
-# exit if no tty was passed
-[ -z "$TTY" ] && exit 1
 
 run_native() {
     cmatrix -r -s -u 10 < "$TTY" > "$TTY" 2>&1

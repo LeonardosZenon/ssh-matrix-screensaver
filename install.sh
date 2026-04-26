@@ -17,7 +17,7 @@ cat <<'EOF' >> "$HOME/.bashrc"
 
 # >>> ssh-matrix-idle >>>
 if [[ -n "$SSH_CONNECTION" && -n "$SSH_TTY" ]]; then
-    ~/.local/bin/ssh-matrix-idle.sh "$SSH_TTY" >/dev/null 2>&1 &
+    ~/.local/bin/ssh-matrix-idle.sh >/dev/null 2>&1 &
 fi
 # <<< ssh-matrix-idle <<<
 EOF
